@@ -1,0 +1,22 @@
+[
+	{
+		"public": true,
+		"pageName": "login"
+	},
+	{
+		"public": true,
+		"pageName": "ssoAuthResponseForLogin"
+	},
+	{
+		"public": false,
+		"pageName": "home"
+	},
+	{
+		"public": false,
+		"pageName": "ssoAuthResponse"
+	},
+	{
+		"public": false,
+		"pageName": "test"
+	}
+]

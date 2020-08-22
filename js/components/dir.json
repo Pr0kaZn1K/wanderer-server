@@ -1,0 +1,104 @@
+[
+	{
+		"directory": false,
+		"public": false,
+		"name": "characters",
+		"path": "characters"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "profile",
+		"path": "profile"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "maps",
+		"path": "maps/maps"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "mapsEditDialog",
+		"path": "maps/mapsEditDialog"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "currentMap",
+		"path": "currentMap"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "systemInfoPanel",
+		"path": "currentMap/systemInfoPanel"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "signatures",
+		"path": "currentMap/signatures"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "systemInfo",
+		"path": "currentMap/systemInfo"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "groups",
+		"path": "groups/groups"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "allowedGroups",
+		"path": "groups/allowed"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "ownGroups",
+		"path": "groups/own"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "groupEditDialog",
+		"path": "groups/groupEditDialog"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "allowedDialog",
+		"path": "groups/allowedDialog"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "groupsSearcher",
+		"path": "searchers/groupsSearcher"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "charactersSearcher",
+		"path": "searchers/charactersSearcher"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "alliancesSearcher",
+		"path": "searchers/alliancesSearcher"
+	},
+	{
+		"directory": false,
+		"public": false,
+		"name": "corporationsSearcher",
+		"path": "searchers/corporationsSearcher"
+	}
+]
