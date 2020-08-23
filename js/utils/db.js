@@ -154,10 +154,13 @@ var Table = classCreator("Table", Emitter, {
 
         this._name = base.name;
         this._properties = base.properties;
+        this._propsMap = Object.create(null);
         this._client = base.client;
         this._idField = base.idField;
     },
     init: function () {
+        this._properties.map((x,i) => this._propsMap[x.name] = i);
+
         var pr = new CustomPromise();
 
         log(log.DEBUG, print_f("Table [%s] loading...", this._name));
@@ -185,6 +188,10 @@ var Table = classCreator("Table", Emitter, {
         }.bind(this));
 
         return pr.native;
+    },
+    getPropertyInfo: function (_name) {
+        var index = this._propsMap[_name];
+        return this._properties[index];
     },
     attributes: function () {
         return this._properties.map(_prop => _prop.name)
@@ -248,7 +255,16 @@ var Table = classCreator("Table", Emitter, {
                 // for (var a = 0; a < _requestFields.length; a++) {
                 //     out[_requestFields[a]] = _result.rows[0][_requestFields[a]];
                 // }
-                out = _result.rows;
+                // out = _result.rows;
+                out = [];
+                for (var a = 0; a < _result.rows.length; a++) {
+                    var row = _result.rows[a];
+                    var newRow = Object.create(null);
+                    for(var attr in row) {
+                        newRow[attr] = extractFromDbType(this.getPropertyInfo(attr, row[attr]));
+                    }
+                    out.push(newRow);
+                }
             }
             pr.resolve(out);
 
@@ -551,6 +567,17 @@ var convertToDBType = function (_type, _value) {
             return _value;
         default:
             return Buffer.from(JSON.stringify(_value)).toString('base64');
+    }
+};
+
+var extractFromDbType = function (_type, _value) {
+    switch (_type) {
+        case String:
+        case Number:
+        case Boolean:
+            return _value;
+        default:
+            return JSON.parse(Buffer.from(_value, 'base64').toString('utf8'));
     }
 };
 
