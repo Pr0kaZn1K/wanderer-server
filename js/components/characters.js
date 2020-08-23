@@ -59,12 +59,10 @@ var template = `
     var componentId = "components/characters";
 
     var deps = [
-        "config",
         "env/query"
     ];
 
     define(componentId, deps, function () {
-        var config = require("config");
         var query  = require("env/query");
 
         Vue.component("characters", {

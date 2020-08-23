@@ -94,9 +94,8 @@ var template = `
 </div>
 `;
 
-require(["env/cookie", "config", "env/query"], function () {
+require(["env/cookie", "env/query"], function () {
     var cookie = require("env/cookie");
-    var config = require("config");
     var query  = require("env/query");
 
     Vue.component("loginForm", {
