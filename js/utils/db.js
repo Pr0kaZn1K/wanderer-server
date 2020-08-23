@@ -507,7 +507,7 @@ var getDBTypeByJsType = function (_jsType) {
             creatingType += "boolean";
             break;
         default:
-            creatingType += "json";
+            creatingType += "text";
             break;
     }
     return creatingType;
