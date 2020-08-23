@@ -1,4 +1,7 @@
 {
+	"app": {
+		"solt": ""
+	},
     "connection": {
         "port": 1400
     },

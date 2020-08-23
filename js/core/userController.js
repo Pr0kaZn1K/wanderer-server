@@ -8,8 +8,6 @@ var OAuth         = require("./../core/eveSwaggerInterface/oauth");
 var log           = require("./../utils/log");
 var md5           = require("md5");
 
-var SOLT = "KEK";
-
 var UserController = classCreator("UserController", Emitter, {
     constructor: function UserController() {
         Emitter.prototype.constructor.call(this);
@@ -21,7 +19,7 @@ var UserController = classCreator("UserController", Emitter, {
         var pr = new CustomPromise();
 
         var base = extend({
-            id: md5(+new Date + SOLT),
+            id: md5(+new Date + config.app.solt),
             mail: "",
             password: ""
         }, _options);

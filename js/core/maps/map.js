@@ -12,7 +12,6 @@ var md5                                    = require("md5");
 var Subscriber                             = require("./../../utils/subscriber");
 var log                                    = require("./../../utils/log");
 const { PerformanceObserver, performance } = require('perf_hooks');
-var SOLT = "kek";
 
 var Map = classCreator("Map", Emitter, {
     constructor: function Map(_options) {
@@ -404,7 +403,7 @@ var Map = classCreator("Map", Emitter, {
 
             var link = await this._getLink();
             if (!link) {
-                var id = md5(SOLT + "_" + +new Date);
+                var id = md5(config.app.solt + "_" + +new Date);
 
                 await core.dbController.mapLinksTable.add({
                     id: id,

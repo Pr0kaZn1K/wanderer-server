@@ -13,8 +13,6 @@ const DBController  = require("./../dbController");
 const Map           = require("./map");
 const md5           = require("md5");
 
-const SOLT = "kek";
-
 const MapController = classCreator("MapController", Emitter, {
     constructor: function MapController() {
         Emitter.prototype.constructor.call(this);
@@ -267,7 +265,7 @@ const MapController = classCreator("MapController", Emitter, {
     createMap: async function (_owner, _data) {
         let pr = new CustomPromise();
 
-        let id = md5(SOLT + "_" + +new Date);
+        let id = md5(config.app.solt + "_" + +new Date);
 
         let props = {
             id: id,

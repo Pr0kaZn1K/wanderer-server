@@ -11,8 +11,6 @@ const exist         = require("./../env/tools/exist");
 const md5           = require("md5");
 const DBController  = require("./dbController");
 
-const SOLT = "kek";
-
 const GroupsController = classCreator("GroupsController", Emitter, {
     constructor: function GroupsController() {
         Emitter.prototype.constructor.call(this);
@@ -59,7 +57,7 @@ const GroupsController = classCreator("GroupsController", Emitter, {
     createGroup: async function (_owner, _data) {
         var pr = new CustomPromise();
 
-        var id = md5(SOLT + "_" + +new Date);
+        var id = md5(config.app.solt + "_" + +new Date);
 
         try {
             let updCharactersPr = this._updateCharacters(id, _data.characters);
