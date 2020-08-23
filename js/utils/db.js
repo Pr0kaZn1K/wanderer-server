@@ -261,7 +261,7 @@ var Table = classCreator("Table", Emitter, {
                     var row = _result.rows[a];
                     var newRow = Object.create(null);
                     for(var attr in row) {
-                        newRow[attr] = extractFromDbType(this.getPropertyInfo(attr, row[attr]));
+                        newRow[attr] = extractFromDbType(this.getPropertyInfo(attr).type, row[attr]);
                     }
                     out.push(newRow);
                 }
