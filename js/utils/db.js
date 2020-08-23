@@ -550,7 +550,7 @@ var convertToDBType = function (_type, _value) {
         case Boolean:
             return _value;
         default:
-            return JSON.stringify(_value);
+            return Buffer.from(JSON.stringify(_value)).toString('base64');
     }
 };
 
