@@ -17,6 +17,7 @@
 		"eve-online"
 	],
 	"scripts": {
+		"dev": "node --inspect js/main.js",
 		"start": "node js/main.js",
 		"clear": "node js/clear.js",
 		"install": "node js/install.js"
