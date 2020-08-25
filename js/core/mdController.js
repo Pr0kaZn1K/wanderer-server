@@ -68,7 +68,10 @@ var SdeController = classCreator("SdeController", Emitter, {
     getCompiledInfo: async function (_systemId) {
         var info = await this.getAdditionalSystemInfo(_systemId);
 
-        if(info && info.statics.length > 0) {
+        if(info && info.statics === null)
+            info.statics = [];
+
+        if(info && info.statics && info.statics.length > 0) {
             var staticArr = info.statics.split(",");
             var arrResults = await Promise.all(staticArr.map(_hole => this.getWormholeClassInfo(_hole)));
             info.statics = arrResults.map(function(_info, _index) {
