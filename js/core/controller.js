@@ -4,7 +4,6 @@ var printf                 = require("./../env/tools/print_f");
 var CustomPromise          = require("./../env/promise");
 var log                    = require("./../utils/log");
 
-var PageControoler         = require("./pageController");
 var DbController           = require("./dbController");
 var UserController         = require("./userController");
 var CharactersController   = require("./characters/controller");
@@ -13,7 +12,6 @@ var AlliancesController    = require("./alliances/controller");
 var MapController          = require("./maps/controller");
 var GroupsController       = require("./groupsController");
 var TokenController        = require("./tokenController");
-var ComponentController    = require("./componentController");
 var SDEController          = require("./sdeController");
 var MDController           = require("./mdController");
 var FDController           = require("./fdController");
@@ -25,11 +23,9 @@ var Controller = classCreator("Controller", Emitter, {
         Emitter.prototype.constructor.call(this);
 
         this.esiApi                 = ESI_API;
-        this.pageController         = new PageControoler();
         this.dbController           = new DbController();
         this.userController         = new UserController();
         this.tokenController        = new TokenController();
-        this.componentController    = new ComponentController();
         this.charactersController   = new CharactersController();
         this.corporationsController = new CorporationsController();
         this.alliancesController    = new AlliancesController();
