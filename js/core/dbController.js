@@ -230,6 +230,7 @@ var DBController = classCreator("DBController", Emitter, {
                 {name: "isLocked",      type: Boolean},
                 {name: "name",          type: String},                       // by default it will default solar system name
                 {name: "description",   type: String},                       // some description about this system
+                {name: "tag",           type: String},                       // system tag
                 {name: "signatures",    type: Array},
                 {name: "type",          type: Object},                       // type of system - wormhole/lowsec/nullsec/highsec/abyss
                 {name: "effects",       type: String},                       // if it wormhole or abyss, system my have had some effects
