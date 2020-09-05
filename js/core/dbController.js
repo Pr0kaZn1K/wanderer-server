@@ -197,24 +197,28 @@ var DBController = classCreator("DBController", Emitter, {
                 {name: "solarSystemTarget", type: String},
                 {
                     name: "lifeTime", type: Number, defaultValue: function () {
-                        return +new Date + (1000 * 60 * 60 * 24 * 2) // maximum wormhole lifetime is two days
+                        return +new Date + (1000 * 60 * 60 * 24 * 2)     // maximum wormhole lifetime is two days
                     }
                 },
                 {
-                    name: "openingTime",    type: String,            // time when user added wormhole to map
+                    name: "openingTime",    type: String,                // time when user added wormhole to map
                     defaultValue: function () {
-                        return +new Date;                            // maximum wormhole lifetime is two days
+                        return +new Date;                                // maximum wormhole lifetime is two days
                     }
                 },
-                {name: "massStatus", type: Number, defaultValue: 0}, // Mass state can be from 0 to 2;
-                                                                     // where 0 - greater than half
-                                                                     // where 1 - less than half
-                                                                     // where 2 - critical less than 10%
+                {name: "massStatus", type: Number, defaultValue: 0},     // Mass state can be from 0 to 2;
+                                                                         // where 0 - greater than half
+                                                                         // where 1 - less than half
+                                                                         // where 2 - critical less than 10%
 
-                {name: "timeStatus", type: Number, defaultValue: 0}, // Time state can be from 0 to 2
-                                                                     // where 0 - more than day
-                                                                     // where 1 - less than day
-                                                                     // where 2 - critical time
+                {name: "timeStatus", type: Number, defaultValue: 1},     // Time state can be from 0 to 2
+                                                                         // where 0 - normal
+                                                                         // where 1 - end of life
+
+                {name: "shipSizeType",   type: Number, defaultValue: 1}, // Ship size type
+                                                                         // where 0 - Frigate
+                                                                         // where 1 - Medium and Large
+                                                                         // where 2 - Capital
                 {name: "wormholeType",   type: String},
                 {name: "countOfPassage", type: Number, defaultValue: 0}
             ]

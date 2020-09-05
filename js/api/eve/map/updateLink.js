@@ -3,7 +3,7 @@ var _sendError = function (_connectionId, _responseId, _message, _data) {
         errData: _data,
         success: false,
         message: _message,
-        eventType: "responseEveMapSystemsUpdate",
+        eventType: "responseEveMapLinkUpdate",
     });
 };
 
@@ -20,11 +20,11 @@ var request = async function (_connectionId, _responseId, _event) {
 
     try {
         await core.tokenController.checkToken(token);
-        await core.mapController.get(_event.mapId).updateSystem(_event.systemId, _event.data);
+        await core.mapController.get(_event.mapId).updateLink(_event.linkId, _event.data);
 
         api.send(_connectionId, _responseId, {
             success: true,
-            eventType: "responseEveMapSystemsUpdate"
+            eventType: "responseEveMapLinkUpdate"
         });
     } catch (_err) {
         _sendError(_connectionId, _responseId, "Error ", _err);

@@ -18,4 +18,5 @@ module.exports = {
     systemsRemove         : require("./map/systemsRemove"),
     updateSystemsPosition : require("./map/updateSystemsPosition"),
     updateSystem          : require("./map/updateSystem"),
+    updateLink            : require("./map/updateLink"),
 };

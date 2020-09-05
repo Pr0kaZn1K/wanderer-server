@@ -680,6 +680,42 @@ var Map = classCreator("Map", Emitter, {
         return pr.native;
     },
 
+
+    updateLink: async function (_linkId, _data) {
+        var pr = new CustomPromise();
+
+        try {
+            var condition = [
+                {name: "id", operator: "=", value: _linkId},
+                {name: "mapId", operator: "=", value: this.options.mapId},
+            ];
+
+            var attrs = core.dbController.mapLinksTable.attributes();
+
+            for(var attr in _data) {
+                if(!attrs.indexOf(attr)) {
+                    throw "Error: you try update not exist attribute";
+                }
+            }
+
+            await core.dbController.mapLinksTable.setByCondition(condition, _data);
+
+            if (this._notifyLinks) {
+                this._linksSubscriber.notify({
+                    type: "linkUpdated",
+                    linkId: _linkId,
+                    data: _data
+                });
+            }
+
+            pr.resolve();
+        } catch (_err) {
+            pr.reject(_err);
+        }
+
+        return pr.native;
+    },
+
     updateSystemsPosition: async function (_systemsPosition) {
         var pr = new CustomPromise();
 

@@ -31,6 +31,7 @@ var request = function (_connectionId, _responseId, _event) {
             description: _event.description,
             characters: _event.characters,
             corporations: _event.corporations,
+            alliances: _event.alliances
         };
 
         return core.groupsController.editGroup(_event.groupId, props);
