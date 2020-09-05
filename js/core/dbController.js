@@ -211,7 +211,7 @@ var DBController = classCreator("DBController", Emitter, {
                                                                          // where 1 - less than half
                                                                          // where 2 - critical less than 10%
 
-                {name: "timeStatus", type: Number, defaultValue: 1},     // Time state can be from 0 to 2
+                {name: "timeStatus", type: Number, defaultValue: 0},     // Time state can be from 0 to 2
                                                                          // where 0 - normal
                                                                          // where 1 - end of life
 
