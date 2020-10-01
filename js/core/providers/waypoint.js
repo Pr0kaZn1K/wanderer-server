@@ -7,25 +7,28 @@ var classCreator    = require("./../../env/tools/class");
 var extend          = require("./../../env/tools/extend");
 var log             = require("./../../utils/log");
 
-var Location = classCreator("Location", Provider, {
+var Waypoint = classCreator("Waypoint", Provider, {
     constructor: function Location(_options) {
         var base = extend({
-            /** @type Number - this is a character identifier */
-            characterId: null,
+            /** @type Number - this is a destinationSolarSystem identifier */
+            destinationId: null,
+            clearOtherWaypoints: null,
+            addToBeginning: null,
             name: "locationObserver",
-            timeout: 5000
+            timeout: 500,
+            isOnce: true
         }, _options);
 
         Provider.prototype.constructor.call(this, base);
     },
     _sendRequest: function () {
-        core.esiApi.location.current(this._token, this.options.characterId).then(function(_event){
-            this._notify(_event.solarSystemId);
+        core.esiApi.uiapi.waypoint(this._token, this.options.addToBeginning, this.options.clearOtherWaypoints, this.options.destinationId).then(function(){
+            this._notify();
         }.bind(this), function(_err){
-            log(log.INFO, "Was next in Location for %s", this.options.characterId);
+            log(log.INFO, "Was next in Waypoint for %s", this.options.destinationId);
             this._next();
         }.bind(this));
     }
 });
 
-module.exports = Location;
+module.exports = Waypoint;

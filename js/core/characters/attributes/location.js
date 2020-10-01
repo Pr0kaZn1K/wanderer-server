@@ -12,8 +12,6 @@ var LocationProvider = require("./../../providers/location");
 var Observer         = require("./../../../utils/observer");
 var Subscriber       = require("./../../../utils/subscriber");
 
-var OAuth            = require("./../../eveSwaggerInterface/oauth");
-
 var Location = classCreator("Location", Emitter, {
     constructor: function Location(_options) {
         this.options = extend({

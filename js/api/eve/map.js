@@ -19,4 +19,5 @@ module.exports = {
     updateSystemsPosition : require("./map/updateSystemsPosition"),
     updateSystem          : require("./map/updateSystem"),
     updateLink            : require("./map/updateLink"),
+    waypoint              : require("./map/waypoint"),
 };

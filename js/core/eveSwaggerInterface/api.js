@@ -9,11 +9,12 @@ var extend         = require("./../../env/tools/extend");
 
 var ESI            = require("./../../external/esiClient/index")
 
-var locationApi    = new ESI.LocationApi();
-var searchApi      = new ESI.SearchApi();
-var characterApi   = new ESI.CharacterApi();
-var corporationApi = new ESI.CorporationApi();
-var allianceApi    = new ESI.AllianceApi();
+var locationApi      = new ESI.LocationApi();
+var searchApi        = new ESI.SearchApi();
+var characterApi     = new ESI.CharacterApi();
+var corporationApi   = new ESI.CorporationApi();
+var allianceApi      = new ESI.AllianceApi();
+var userInterfaceApi = new ESI.UserInterfaceApi();
 
 var publicData = {
     datasource: config.eve.datasource
@@ -112,6 +113,23 @@ var __esi_location_current = function (_accessToken, _characterId) {
     return pr.native;
 };
 
+var __esi_uiapi_waypoint = function (_accessToken, addToBeginning, clearOtherWaypoints, destinationId) {
+    var pr = new CustomPromise();
+
+    var base = extend(publicData, {
+        token: _accessToken
+    });
+
+    userInterfaceApi.postUiAutopilotWaypoint(addToBeginning, clearOtherWaypoints, destinationId, base, function (error, data, response) {
+        if(error)
+            pr.reject(error);
+        else
+            pr.resolve(data);
+    });
+
+    return pr.native;
+};
+
 var _search = function (_categories, _match) {
     var pr = new CustomPromise();
 
@@ -137,6 +155,9 @@ var __esi_location_ship = function (_access_token, _char_id) {
 
 
 module.exports = {
+    uiapi: {
+        waypoint: __esi_uiapi_waypoint
+    },
     location: {
         current: __esi_location_current,
         online: __esi_location_online,

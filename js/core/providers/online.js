@@ -18,7 +18,7 @@ var Online = classCreator("Online", Provider, {
 
         Provider.prototype.constructor.call(this, base);
     },
-    _sendRequest: function (_callback) {
+    _sendRequest: function () {
         core.esiApi.location.online(this._token, this.options.characterId).then(function(_event){
             this._notify(_event.online);
         }.bind(this), function(_err){

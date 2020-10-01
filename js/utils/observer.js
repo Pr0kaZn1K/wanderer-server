@@ -8,7 +8,7 @@ var extend       = require("./../env/tools/extend");
 
 var counter = 0;
 
-var Provider = classCreator("Observer", Emitter, {
+var Observer = classCreator("Observer", Emitter, {
     constructor: function Observer(_options) {
         this.options = extend({
             isCreateInstant: false,
@@ -81,4 +81,4 @@ var Provider = classCreator("Observer", Emitter, {
     }
 });
 
-module.exports = Provider;
+module.exports = Observer;

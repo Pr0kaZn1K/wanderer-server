@@ -13,6 +13,7 @@ var log               = require("./../../utils/log");
 var OAuth             = require("./../eveSwaggerInterface/oauth");
 var OnlineAttribute   = require("./attributes/online");
 var LocationAttribute = require("./attributes/location");
+var WaypointEvent     = require("./events/waypoint");
 var DBController      = require("./../dbController");
 
 var Character = classCreator("Character", Emitter, {
@@ -23,16 +24,18 @@ var Character = classCreator("Character", Emitter, {
 
         Emitter.prototype.constructor.call(this);
 
-
         /** @type Subscriber */
-
         this._attributes = Object.create(null);
         this._isRefreshingToken = false;
         this._refreshAccessTokenResolver = null;
         this._refreshAccessTokenMaxCount = 10;
         this._refreshAccessTokenCount = 0;
+
+        this._createEvents();
     },
     destructor: function () {
+        this.waypoint.destructor();
+
         for(var id in this._attributes)
             this._attributes[id].destructor();
 
@@ -43,7 +46,11 @@ var Character = classCreator("Character", Emitter, {
 
         Emitter.prototype.destructor.call(this);
     },
-
+    _createEvents: function () {
+        this.waypoint = new WaypointEvent({
+            accessToken: this.getAccessToken.bind(this)
+        });
+    },
 
     has: function (_attribute) {
         return !!this._attributes[_attribute];

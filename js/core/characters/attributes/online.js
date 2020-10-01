@@ -12,8 +12,6 @@ var OnlineProvider = require("./../../providers/online");
 var Observer       = require("./../../../utils/observer");
 var Subscriber     = require("./../../../utils/subscriber");
 
-var OAuth          = require("./../../eveSwaggerInterface/oauth");
-
 var Online = classCreator("Online", Emitter, {
     constructor: function Online(_options) {
         this.options = extend({
