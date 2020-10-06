@@ -394,6 +394,15 @@ var UserController = classCreator("UserController", Emitter, {
         }.bind(this));
 
         return pr.native;
+    },
+    isCharacterAttachedToUser: async function (_characterId, _userId) {
+        let condition = [
+            {name: "type", operator: "=", value: DBController.linksTableTypes.userToCharacter},
+            {name: "first", operator: "=", value: _userId},
+            {name: "second", operator: "=", value: _characterId},
+        ];
+        let result = await core.dbController.linksTable.getByCondition(condition, ["first"]);
+        return result.length === 1;
     }
 });
 

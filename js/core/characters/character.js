@@ -13,6 +13,7 @@ var log               = require("./../../utils/log");
 var OAuth             = require("./../eveSwaggerInterface/oauth");
 var OnlineAttribute   = require("./attributes/online");
 var LocationAttribute = require("./attributes/location");
+var ShipAttribute     = require("./attributes/ship");
 var WaypointEvent     = require("./events/waypoint");
 var DBController      = require("./../dbController");
 
@@ -79,6 +80,8 @@ var Character = classCreator("Character", Emitter, {
                 return OnlineAttribute;
             case "location":
                 return LocationAttribute;
+            case "ship":
+                return ShipAttribute;
         }
     },
 
@@ -89,23 +92,26 @@ var Character = classCreator("Character", Emitter, {
     },
 
 
-     getInfo: function () {
-        var pr = new CustomPromise();
+     getInfo: async function () {
+         let attrs = ["name", "images", "online", "ship", "info"];
+        //getShipTypeInfo
 
-        var attrs = ["name", "images", "online", "info"];
-        core.dbController.charactersDB.get(this.options.characterId, attrs).then(function(_result){
-            pr.resolve({
-                name: _result.name,
-                images: _result.images,
-                online: _result.online,
-                corporation: _result.info.corporation.name,
-                alliance: _result.info.alliance.name,
-            });
-        }.bind(this), function(_err){
-            pr.reject(_err)
-        }.bind(this));
+        let result = await core.dbController.charactersDB.get(this.options.characterId, attrs);
 
-        return pr.native;
+        let shipName = "capsule";
+        if(result.ship) {
+            let shipInfo = await core.sdeController.getShipTypeInfo(result.ship);
+            shipName = shipInfo.typeName;
+        }
+
+        return {
+            name: result.name,
+            images: result.images,
+            online: result.online,
+            ship: shipName,
+            corporation: result.info.corporation.name,
+            alliance: result.info.alliance.name,
+        }
     },
     getCorporationId: function () {
         var pr = new CustomPromise();

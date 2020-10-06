@@ -240,14 +240,24 @@ var Map = classCreator("Map", Emitter, {
             var locationSubscribeId = locationAttr.on("change", this._onLocationChange.bind(this, _characterId));
             characterData.locationAttr = locationAttr;
             characterData.locationSubscribeId = locationSubscribeId;
-            characterData.locationValue = null;
+
+            var shipAttr = core.charactersController.get(_characterId).get("ship");
+            var shipSubscribeId = shipAttr.on("change", this._onShipChange.bind(this, _characterId));
+            characterData.shipAttr = shipAttr;
+            characterData.shipSubscribeId = shipSubscribeId;
+
+            characterData.locationValue = null; // ?? Что это за странная фигня. Если разберусь почему надо описать
             characterData.onlineValue = true;
         }
 
-            // when state change from true to false
+        // when state change from true to false
         // we need off subscribe from character
         else if (!_isOnline && characterData.onlineValue) {
             if (characterData.locationValue !== null) {
+                characterData.shipAttr.off(characterData.shipSubscribeId);
+                delete characterData.shipAttr;
+                delete characterData.shipSubscribeId;
+
                 characterData.locationAttr.off(characterData.locationSubscribeId);
                 delete characterData.locationAttr;
                 delete characterData.locationSubscribeId;
@@ -305,6 +315,10 @@ var Map = classCreator("Map", Emitter, {
 
             this._characterMoveToSystem(_characterId, oldSystem, _location);
         }
+    },
+
+    _onShipChange: function (_characterId, _shipTypeId) {
+        // todo Пока ничего делать не надо, но в будущем надо отправлять уведомление, что тип шипа поменялся
     },
 
     /**
@@ -487,6 +501,7 @@ var Map = classCreator("Map", Emitter, {
             );`;
 
         try {
+            this._createSystemObject(_systemId);
             await core.dbController.db.custom(query);
             this._systems[_systemId].onlineCharacters.push(_characterId);
             this._charactersOnSystem[_characterId] = _systemId;
@@ -543,10 +558,11 @@ var Map = classCreator("Map", Emitter, {
         try {
             var solarSystemInfo = await core.sdeController.getSolarSystemInfo(_systemId);
             var systemClass = await core.sdeController.getSystemClass(solarSystemInfo.regionID, solarSystemInfo.constellationID, _systemId);
+            let isExists = await this.systemExists(_systemId);
 
             var isEmpire = systemClass === 7 || systemClass === 8 || systemClass === 9;
 
-            if(!isEmpire) {
+            if(isExists || !isEmpire) {
                 // Если такой системы на карте нет, то создаст и оповестит
                 // Если есть, то ничего не будет делать
                 await this._addSystem(null, _systemId);

@@ -44,7 +44,7 @@ var request = function (_connectionId, _responseId, _event) {
         }
 
         return Promise.all(prarr)
-    }.bind(this), function(){
+    }.bind(this), function(_error){
         _sendError(_connectionId, _responseId, printf("Error on load characters for user - %s", userId));
     }.bind(this)).then(function(_charactersInfoArr){
         for (var a = 0; a < _charactersInfoArr.length; a++) {
@@ -57,7 +57,7 @@ var request = function (_connectionId, _responseId, _event) {
             eventType: "responseEveCharacterList"
         });
 
-    }.bind(this), function(){
+    }.bind(this), function(_error){
         _sendError(_connectionId, _responseId, printf("Error on load characters for user - %s", userId));
     }.bind(this));
 

@@ -66,6 +66,14 @@ var SdeController = classCreator("SdeController", Emitter, {
 
         return pr.native;
     },
+    getShipTypeInfo: async function (_shipTypeId) {
+        let query = `SELECT "typeName", "volume"
+            FROM public."invTypes"
+            WHERE "typeID"='` + _shipTypeId + `';`;
+
+        var result = await core.dbController.sdeDB.custom(query);
+        return result.rowCount > 0 ? result.rows[0] : null;
+    },
     /**
      *
      * SYSTEMS CLASSIFICATION

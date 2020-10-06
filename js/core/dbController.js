@@ -131,6 +131,7 @@ var DBController = classCreator("DBController", Emitter, {
                 {name: "tokenType",          type: String},
                 {name: "online",             type: Boolean},
                 {name: "location",           type: String},
+                {name: "ship",               type: String},
                 {name: "images",             type: Object},
                 {name: "infoExpiresIn",      type: Number},    // in milliseconds
                 {name: "info",               type: Object},

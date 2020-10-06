@@ -538,7 +538,7 @@ const GroupsController = classCreator("GroupsController", Emitter, {
 
             pr.resolve(groupsInfo);
         } catch (_err) {
-            pr.reject();
+            pr.reject(_err);
         }
 
         return pr.native;

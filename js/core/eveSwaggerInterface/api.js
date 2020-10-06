@@ -113,6 +113,23 @@ var __esi_location_current = function (_accessToken, _characterId) {
     return pr.native;
 };
 
+var __esi_location_ship = function (_accessToken, _characterId) {
+    var pr = new CustomPromise();
+
+    var base = extend(publicData, {
+        token: _accessToken
+    });
+
+    locationApi.getCharactersCharacterIdShip(_characterId, base, function (error, data, response) {
+        if(error)
+            pr.reject(error);
+        else
+            pr.resolve(data);
+    });
+
+    return pr.native;
+};
+
 var __esi_uiapi_waypoint = function (_accessToken, addToBeginning, clearOtherWaypoints, destinationId) {
     var pr = new CustomPromise();
 
@@ -146,13 +163,6 @@ var _search = function (_categories, _match) {
 
     return pr.native;
 };
-
-var __esi_location_ship = function (_access_token, _char_id) {
-    var path = "dev/characters/" + _char_id + "/ship/";
-    return _esi_bearer_get_request(_access_token, path);
-};
-
-
 
 module.exports = {
     uiapi: {

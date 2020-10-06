@@ -12,7 +12,7 @@ var _sendError = function (_connectionId, _responseId, _message, _data) {
 };
 
 
-var request = function (_connectionId, _responseId, _event) {
+var request = async function (_connectionId, _responseId, _event) {
     // we need get token by connection
     var token = core.connectionStorage.get(_connectionId);
 
@@ -22,29 +22,20 @@ var request = function (_connectionId, _responseId, _event) {
         return;
     }
 
-    var userId = null;
+    try {
+        let userId = await core.tokenController.checkToken(token);
+        let info = await core.charactersController.getCharInfo(_event.characterId, _event.type);
+        let own = await core.userController.isCharacterAttachedToUser(_event.characterId, userId);
+        info.isOwn = own;
 
-    core.tokenController.checkToken(token).then(function(_value) {
-        userId = _value;
-
-        // log(log.INFO, printf("SSO_AUTH[1]: inner token success for user [%s]", _value));
-
-        return core.charactersController.getCharInfo(_event.characterId, _event.type);
-    }.bind(this), function() {
-        _sendError(_connectionId, _responseId, "You not authorized or token was expired");
-    }.bind(this))
-
-    .then(function(_info){
         api.send(_connectionId, _responseId, {
-            result: _info,
+            result: info,
             success: true,
             eventType: "responseEveCharacterCharInfo"
-        });
-    }.bind(this), function(_err){
-        // need log it
+        })
+    } catch (_err) {
         _sendError(_connectionId, _responseId, "Error on load char info", _err);
-    }.bind(this))
-
+    }
 };
 
 module.exports = request;

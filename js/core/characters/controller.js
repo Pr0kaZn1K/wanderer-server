@@ -95,16 +95,17 @@ var Controller = classCreator("CharactersController", Emitter, {
      * default "global"
      * @returns {*}
      */
-    getCharInfo: function (_characterId, _type) {
-        var pr = new CustomPromise();
-
-        core.esiApi.characters.info(_characterId).then(function (_result) {
-            pr.resolve({name: _result.name});
-        }.bind(this), function (_err) {
-            pr.reject(_err);
-        }.bind(this));
-
-        return pr.native;
+    getCharInfo: async function (_characterId, _type) {
+        // todo где-то вот тут проверять нужно ли запрашивать данные по корпе заного
+        switch (_type) {
+            case "local":
+                break;
+            case "global": // load info from eve server
+                let result = await core.esiApi.characters.info(_characterId);
+                return {name: result.name};
+            case "all":
+                return this.get(_characterId).getInfo();
+        }
     },
     removeCharacter: async function (_userId, _characterId) {
         var pr = new CustomPromise();

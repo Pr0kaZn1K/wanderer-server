@@ -589,7 +589,11 @@ var extractCondition = function (_arr) {
             if ((!exist(_arr[a].name) || !exist(_arr[a].operator) || !exist(_arr[a].value)))
                 throw "Exception 'condition without a data'";
 
-            arr.push(print_f("\"%s\" %s '%s'", _arr[a].name, _arr[a].operator, _arr[a].value));
+            let val = _arr[a].value;
+            if(typeof val === "string")
+                val = val.replace("'", "\\\'");
+
+            arr.push(print_f("\"%s\" %s '%s'", _arr[a].name, _arr[a].operator, val));
         }
         return arr.join(" AND ");
     } else if(_arr.constructor === String) {
@@ -604,8 +608,5 @@ var updateFields = function (_fields){
     }
     return arr.join(",");
 };
-
-
-
 
 module.exports = DB;
