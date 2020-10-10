@@ -268,8 +268,6 @@ var UserController = classCreator("UserController", Emitter, {
                 };
 
                 await core.dbController.charactersDB.add(charProps);
-
-
                 await this._boundUserAndCharacter(_userId, data.userData.CharacterID);
 
                 pr.resolve();

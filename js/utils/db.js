@@ -562,6 +562,7 @@ var getDefaultValueByType = function (_type) {
 var convertToDBType = function (_type, _value) {
     switch (_type) {
         case String:
+            return _value.toString().replace("'", "''");
         case Number:
         case Boolean:
             return _value;
@@ -573,6 +574,7 @@ var convertToDBType = function (_type, _value) {
 var extractFromDbType = function (_type, _value) {
     switch (_type) {
         case String:
+            return _value.replace("''", "'");
         case Number:
         case Boolean:
             return _value;
@@ -591,7 +593,7 @@ var extractCondition = function (_arr) {
 
             let val = _arr[a].value;
             if(typeof val === "string")
-                val = val.replace("'", "\\\'");
+                val = val.replace("'", "''");
 
             arr.push(print_f("\"%s\" %s '%s'", _arr[a].name, _arr[a].operator, val));
         }
